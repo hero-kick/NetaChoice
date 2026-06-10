@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://netachoice.local/schemas/neta-schema.json",
+  "title": "NetaChoice Shared Schema",
+  "description": "3ツール（neta-dataset-builder, neta-furui-lite, quote-video-factory）が共有するデータ交換フォーマット。dataset-builder が出力し、neta-furui-lite で取り込み・仕分けし、quote-video-factory で消費する。",
+  "type": "object",
+  "required": ["schemaVersion", "datasets", "cards"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "このスキーマのバージョン。破壊的変更時にmajorを上げる。"
+    },
+    "exportedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "エクスポート時刻（ISO8601）。任意。"
+    },
+    "source": {
+      "type": "object",
+      "description": "このファイルを生成したツール情報。トレーサビリティ用。任意。",
+      "additionalProperties": false,
+      "properties": {
+        "tool": {
+          "type": "string",
+          "enum": ["neta-dataset-builder", "neta-furui-lite", "quote-video-factory", "manual"]
+        },
+        "version": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["tool"]
+    },
+    "datasets": {
+      "type": "array",
+      "description": "データセット定義。1ファイルに複数 dataset を含められる。",
+      "items": { "$ref": "#/$defs/Dataset" }
+    },
+    "cards": {
+      "type": "array",
+      "description": "カード本体。各カードは datasetId で dataset と紐付く。",
+      "items": { "$ref": "#/$defs/Card" }
+    }
+  },
+  "$defs": {
+    "Dataset": {
+      "type": "object",
+      "required": ["id", "name", "fields"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "データセットID。ツールをまたいで安定。"
+        },
+        "name": {
+          "type": "string",
+          "description": "表示名。"
+        },
+        "description": {
+          "type": "string",
+          "description": "用途・出所などの説明。"
+        },
+        "icon": {
+          "type": "string",
+          "description": "絵文字または短い識別子。表示用。"
+        },
+        "fields": {
+          "type": "array",
+          "description": "カードに含まれるカスタムフィールドの定義。",
+          "items": { "$ref": "#/$defs/CustomFieldDefinition" }
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "CustomFieldDefinition": {
+      "type": "object",
+      "required": ["key", "label", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Card.customFields のキー名。"
+        },
+        "label": {
+          "type": "string",
+          "description": "UI表示名。"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["text", "textarea", "number", "rating", "select", "multiSelect"],
+          "description": "フィールド型。"
+        },
+        "showOnCard": {
+          "type": "boolean",
+          "default": true,
+          "description": "仕分けカードの表面に表示するか。"
+        },
+        "options": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "select / multiSelect 型の選択肢。"
+        }
+      }
+    },
+    "Card": {
+      "type": "object",
+      "required": ["id", "datasetId", "title"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "カードID。"
+        },
+        "datasetId": {
+          "type": "string",
+          "description": "属する Dataset の id。"
+        },
+        "title": {
+          "type": "string",
+          "description": "見出し。一覧・仕分けカードの主表示。"
+        },
+        "summary": {
+          "type": "string",
+          "description": "1〜3行の概要。"
+        },
+        "memo": {
+          "type": "string",
+          "description": "ユーザーが追記する自由メモ。"
+        },
+        "customFields": {
+          "type": "object",
+          "description": "Dataset.fields に対応する値。キー名は CustomFieldDefinition.key と一致させる。",
+          "additionalProperties": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "number" },
+              { "type": "array", "items": { "type": "string" } },
+              { "type": "null" }
+            ]
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["unclassified", "keep", "discard", "hold"],
+          "description": "仕分け状態。neta-furui-lite が管理する。dataset-builder の出力では省略可（省略時は unclassified 扱い）。"
+        },
+        "reviewCount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "仕分け回数。neta-furui-lite が更新する。"
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "lastReviewedAt": { "type": "string", "format": "date-time" },
+        "provenance": {
+          "type": "object",
+          "description": "出典・収集元の情報。dataset-builder が記録、quote-video-factory が画面表示の出典クレジットとして利用。",
+          "additionalProperties": false,
+          "properties": {
+            "sourceUrl": { "type": "string", "format": "uri" },
+            "sourceTitle": { "type": "string" },
+            "author": { "type": "string" },
+            "publishedAt": { "type": "string" },
+            "license": { "type": "string", "description": "例: CC-BY, public-domain, copyrighted-fair-use" },
+            "collectedAt": { "type": "string", "format": "date-time" },
+            "collectedBy": { "type": "string", "description": "収集に使ったエージェント名やプロンプトID" }
+          }
+        }
+      }
+    }
+  }
+}

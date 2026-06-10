@@ -1,0 +1,8 @@
+node_modules/
+dist/
+dev-dist/
+.verify-shots/
+*.local
+
+# CI workflow は workflow スコープ不足で push 不可のためローカル保持
+.github/

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ネタふるい Lite — ツール説明</title>
+<style>
+  :root {
+    --primary: #6366f1;
+    --primary-light: #eef2ff;
+    --text: #2d3436;
+    --gray: #666666;
+    --light-gray: #f5f7fa;
+    --keep: #16a34a;
+    --keep-light: #dcfce7;
+    --discard: #dc2626;
+    --discard-light: #fee2e2;
+    --hold: #d97706;
+    --hold-light: #fef3c7;
+    --border: #e5e7eb;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    color: var(--text);
+    background: #fafafa;
+    line-height: 1.8;
+  }
+  .container { max-width: 800px; margin: 0 auto; padding: 40px 20px 80px; }
+  header {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    color: #fff;
+    border-radius: 20px;
+    padding: 48px 32px;
+    margin-bottom: 40px;
+  }
+  header h1 { font-size: 32px; margin-bottom: 8px; }
+  header p.subtitle { font-size: 16px; opacity: 0.9; }
+  header p.lead { margin-top: 20px; font-size: 15px; opacity: 0.95; }
+  section {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-size: 20px;
+    color: var(--primary);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-light);
+  }
+  h3 { font-size: 16px; margin: 20px 0 8px; }
+  p { margin-bottom: 12px; font-size: 15px; }
+  ul, ol { padding-left: 24px; margin-bottom: 12px; }
+  li { margin-bottom: 6px; font-size: 15px; }
+  code {
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1px 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 13px;
+  }
+  pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 20px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  pre code { background: none; border: none; color: inherit; padding: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  th { background: var(--light-gray); font-weight: 600; }
+  .badge {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 2px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .badge.keep { background: var(--keep-light); color: var(--keep); }
+  .badge.discard { background: var(--discard-light); color: var(--discard); }
+  .badge.hold { background: var(--hold-light); color: var(--hold); }
+  .badge.unclassified { background: var(--light-gray); color: var(--gray); }
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+  }
+  .flow .step {
+    flex: 1;
+    min-width: 180px;
+    background: var(--primary-light);
+    border: 1px solid #c7d2fe;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+  .flow .step strong { display: block; font-size: 14px; color: var(--primary); margin-bottom: 4px; }
+  .flow .step.current {
+    background: #fff;
+    border: 2px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+  }
+  .flow .arrow {
+    align-self: center;
+    color: var(--primary);
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .note {
+    background: var(--hold-light);
+    border-left: 4px solid var(--hold);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  kbd {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-bottom-width: 2px;
+    border-radius: 6px;
+    padding: 1px 8px;
+    font-size: 13px;
+    font-family: inherit;
+  }
+  footer {
+    text-align: center;
+    color: var(--gray);
+    font-size: 13px;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>ネタふるい Lite</h1>
+    <p class="subtitle">ネタをあとで仕分ける — 自分用の軽量仕分けPWA</p>
+    <p class="lead">
+      AIや自分で大量に集めたネタ・アイデア・創作素材を、スマホの空き時間に1枚ずつ見て
+      「残す / 捨てる / 保留」に直感的に仕分けるためのツールです。
+      保存するためのメモアプリではなく、<strong>大量の候補をふるいにかけて、使えるものだけ残す</strong>ためのアプリです。
+    </p>
+  </header>
+
+  <section>
+    <h2>コンセプト</h2>
+    <ul>
+      <li><strong>軽い</strong> — ログイン・サーバー・クラウド不要。完全ローカルで動くPWA</li>
+      <li><strong>分かりやすい</strong> — 画面は4つだけ（ホーム / 仕分け / 一覧 / インポート・エクスポート）</li>
+      <li><strong>スマホで使いやすい</strong> — スワイプ操作、ホーム画面に追加して即起動</li>
+      <li><strong>データを入れやすい</strong> — AIが作ったJSONを貼り付け、またはファイル選択で取り込み</li>
+      <li><strong>分類しやすい</strong> — 1画面1カード。迷ったら保留、あとで再ふるい</li>
+      <li><strong>残したものを取り出しやすい</strong> — 「残す」だけをJSONやMarkdownで出力</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>NetaChoice 3ツール構成の中での位置づけ</h2>
+    <p>ネタふるい Lite は「集める → 仕分ける → 形にする」という3工程の真ん中を担当します。</p>
+    <div class="flow">
+      <div class="step">
+        <strong>neta-dataset-builder（予定）</strong>
+        AI・Web検索でネタ候補を収集し、共通スキーマのJSONを出力
+      </div>
+      <div class="arrow">→</div>
+      <div class="step current">
+        <strong>ネタふるい Lite（このツール）</strong>
+        人間がカードを1枚ずつ見て仕分ける。AI機能・動画機能は持たない
+      </div>
+      <div class="arrow">→</div>
+      <div class="step">
+        <strong>quote-video-factory（予定）</strong>
+        「残す」カードから短尺動画を生成
+      </div>
+    </div>
+    <p>
+      ツール間のデータ受け渡しはすべて <code>shared/neta-schema.json</code> 準拠のJSONファイルで行います。
+      DBやサーバーは介在しません。
+    </p>
+  </section>
+
+  <section>
+    <h2>データの構造</h2>
+    <p>データは2階層だけです。</p>
+    <table>
+      <tr><th>階層</th><th>意味</th><th>例</th></tr>
+      <tr><td><strong>データセット</strong></td><td>分類対象のまとまり。カスタム項目の定義を持つ</td><td>ミステリートリック、動画ネタ、衛生講話ネタ</td></tr>
+      <tr><td><strong>カード</strong></td><td>1つ1つのネタ・候補</td><td>時計の針で文字を読む謎、夜勤明けの仮眠は90分か20分か</td></tr>
+    </table>
+    <p>カードの状態は4種類です。</p>
+    <p>
+      <span class="badge unclassified">未分類</span>
+      <span class="badge keep">残す</span>
+      <span class="badge discard">捨てる</span>
+      <span class="badge hold">保留</span>
+    </p>
+  </section>
+
+  <section>
+    <h2>画面と使い方</h2>
+
+    <h3>1. ホーム画面</h3>
+    <p>データセットの一覧と、今日の進捗（見た / 残す / 捨てる）を表示します。データセットの新規作成・編集もここから行います。</p>
+
+    <h3>2. 仕分け画面</h3>
+    <p>未分類カードを1枚ずつ表示します。操作方法は3通りあります。</p>
+    <table>
+      <tr><th>操作</th><th>残す</th><th>捨てる</th><th>保留</th><th>1つ戻る</th></tr>
+      <tr><td>スワイプ</td><td>右</td><td>左</td><td>上</td><td>—</td></tr>
+      <tr><td>ボタン</td><td>残す</td><td>捨てる</td><td>保留</td><td>↩ 1つ戻る</td></tr>
+      <tr><td>キーボード（PC）</td><td><kbd>→</kbd></td><td><kbd>←</kbd></td><td><kbd>↑</kbd></td><td><kbd>Z</kbd></td></tr>
+    </table>
+    <p>
+      未分類をすべて仕分け終わると完了画面になり、保留が残っていれば
+      <strong>「保留 N 件を再仕分けする」</strong>からそのまま再ふるいに入れます。
+      保留モード中は「保留のまま」を選ぶとそのカードを飛ばして次に進みます。
+    </p>
+
+    <h3>3. 一覧画面</h3>
+    <p>
+      仕分け済みカードを状態・データセットで絞り込み、タイトルで検索できます。
+      カードをタップすると詳細が開き、状態の変更・編集・削除ができます。手動でのカード追加もここから行います。
+    </p>
+
+    <h3>4. インポート / エクスポート画面</h3>
+    <p>データの出し入れをまとめた画面です。詳細は次のセクションを参照してください。</p>
+  </section>
+
+  <section>
+    <h2>インポート</h2>
+    <p>2つの方法で取り込めます。</p>
+    <ul>
+      <li><strong>JSONファイルを選んでインポート</strong> — スマホでも扱いやすいファイル選択方式</li>
+      <li><strong>貼り付けてインポート</strong> — AIの出力をそのままテキストエリアに貼り付け</li>
+    </ul>
+    <p>対応フォーマットは2種類です。</p>
+
+    <h3>共通スキーマ形式（neta-schema.json 準拠・推奨）</h3>
+<pre><code>{
+  "schemaVersion": "1.0.0",
+  "datasets": [
+    {
+      "id": "ds-example",
+      "name": "データセット名",
+      "fields": [
+        { "key": "theme", "label": "テーマ", "type": "text" }
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-001",
+      "datasetId": "ds-example",
+      "title": "カードタイトル",
+      "summary": "概要",
+      "customFields": { "theme": "睡眠" }
+    }
+  ]
+}</code></pre>
+
+    <h3>旧形式（シンプルなAI出力向け）</h3>
+<pre><code>{
+  "datasetName": "データセット名",
+  "cards": [
+    {
+      "title": "カードタイトル",
+      "summary": "概要",
+      "memo": "メモ",
+      "customFields": { "難易度": "3" }
+    }
+  ]
+}</code></pre>
+
+    <h3>取り込み時のルール</h3>
+    <ul>
+      <li>同名のデータセットが既にあればそこに追加、なければ新規作成</li>
+      <li>新しいカスタム項目の定義は既存データセットに自動でマージ</li>
+      <li>同じIDのカードは重複して取り込まない（同じファイルを2回読んでも安全）</li>
+      <li>バックアップJSONを読み込むと、仕分け状態（残す / 捨てる / 保留）ごと復元</li>
+      <li>多少項目が欠けていても取り込める。不正なJSONは分かりやすいエラーを表示</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>エクスポート</h2>
+    <table>
+      <tr><th>出力</th><th>内容</th><th>用途</th></tr>
+      <tr>
+        <td><strong>全データJSON</strong></td>
+        <td>全データセット・全カード（仕分け状態込み）</td>
+        <td>バックアップ・別端末への移行</td>
+      </tr>
+      <tr>
+        <td><strong>「残す」だけJSON</strong></td>
+        <td>残すカードと、その所属データセット定義のみ</td>
+        <td>quote-video-factory など下流ツールへの受け渡し</td>
+      </tr>
+      <tr>
+        <td><strong>「残す」だけMarkdown</strong></td>
+        <td>残すカードを人が読みやすい形式で整形</td>
+        <td>メモアプリへの転記、AIへの再投入</td>
+      </tr>
+    </table>
+    <p>ファイル名には日付が入るため（例：<code>neta-furui-backup-20260611.json</code>）、過去のバックアップが上書きされません。</p>
+  </section>
+
+  <section>
+    <h2>データの保存場所と注意</h2>
+    <ul>
+      <li>データはすべてブラウザの <code>localStorage</code> に保存されます。サーバーには何も送信されません</li>
+      <li>ブラウザのサイトデータを削除するとデータも消えます。<strong>定期的に「全データをJSONで保存」でバックアップしてください</strong></li>
+      <li>保存容量が不足して保存に失敗した場合は警告が表示されます</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>起動方法（開発者向け）</h2>
+<pre><code>cd C:\ClaudeCode\apps\NetaChoice\neta-furui-lite
+npm install
+npm run dev      # 開発サーバー起動
+npm run build    # 本番ビルド（dist/ に出力、PWA対応）</code></pre>
+    <p>
+      技術スタック：React + TypeScript + Vite + Tailwind CSS + Framer Motion + vite-plugin-pwa。
+      インポート/エクスポートのロジック検証は <code>npx tsx scripts/smoke-import.ts</code> で実行できます。
+    </p>
+  </section>
+
+  <section>
+    <h2>このツールが「やらないこと」</h2>
+    <ul>
+      <li>AIによるネタ収集（neta-dataset-builder の役割）</li>
+      <li>動画・画像の生成（quote-video-factory の役割）</li>
+      <li>ログイン、クラウド同期、チーム共有、課金</li>
+      <li>複雑な統計やダッシュボード</li>
+    </ul>
+    <p>仕分けに集中するための道具として、意図的に機能を絞っています。</p>
+  </section>
+
+  <footer>
+    ネタふるい Lite — NetaChoice プロジェクト（2026年6月時点）
+  </footer>
+
+</div>
+</body>
+</html>
