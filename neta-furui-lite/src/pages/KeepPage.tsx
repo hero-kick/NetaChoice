@@ -24,16 +24,29 @@ export default function KeepPage({
 }: KeepPageProps) {
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   const [editingCard, setEditingCard] = useState<Card | null>(null);
+  const [datasetFilter, setDatasetFilter] = useState<string | "all">("all");
 
   const keepCards = cards.filter((c) => c.status === "keep");
 
   // 残すカードのあるデータセットだけ、定義順に
-  const groups = datasets
+  const allGroups = datasets
     .map((ds) => ({
       dataset: ds,
       cards: keepCards.filter((c) => c.datasetId === ds.id),
     }))
     .filter((g) => g.cards.length > 0);
+
+  // 選択中のデータセットから「残す」が無くなったら「すべて」に戻す
+  const effectiveFilter =
+    datasetFilter !== "all" &&
+    !allGroups.some((g) => g.dataset.id === datasetFilter)
+      ? "all"
+      : datasetFilter;
+
+  const groups =
+    effectiveFilter === "all"
+      ? allGroups
+      : allGroups.filter((g) => g.dataset.id === effectiveFilter);
 
   const selectedDataset = selectedCard
     ? datasets.find((d) => d.id === selectedCard.datasetId)
@@ -67,22 +80,44 @@ export default function KeepPage({
   return (
     <div className="px-4 pt-6 pb-24">
       <div className="flex items-center gap-3 mb-1">
-        <button
-          onClick={() => onNavigate("home")}
-          className="p-1 -ml-1 text-gray-400 hover:text-gray-600"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
         <h1 className="text-xl font-bold text-gray-800">残したネタ</h1>
         <span className="text-sm font-medium text-keep bg-keep-light px-2.5 py-0.5 rounded-full">
           {keepCards.length} 件
         </span>
       </div>
-      <p className="text-sm text-gray-500 mb-6 ml-8">
+      <p className="text-sm text-gray-500 mb-4">
         ふるいを通り抜けたネタを読み返す
       </p>
+
+      {/* dataset selection chips */}
+      {allGroups.length > 1 && (
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-4 px-4 scrollbar-hide">
+          <button
+            onClick={() => setDatasetFilter("all")}
+            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+              effectiveFilter === "all"
+                ? "bg-keep text-white"
+                : "bg-white text-gray-600 border border-gray-200"
+            }`}
+          >
+            すべて {keepCards.length}
+          </button>
+          {allGroups.map(({ dataset, cards: groupCards }) => (
+            <button
+              key={dataset.id}
+              onClick={() => setDatasetFilter(dataset.id)}
+              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                effectiveFilter === dataset.id
+                  ? "bg-keep text-white"
+                  : "bg-white text-gray-600 border border-gray-200"
+              }`}
+            >
+              {dataset.icon ? dataset.icon + " " : ""}
+              {dataset.name} {groupCards.length}
+            </button>
+          ))}
+        </div>
+      )}
 
       {groups.length === 0 ? (
         <div className="text-center py-16">

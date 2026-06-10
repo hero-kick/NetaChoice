@@ -1,8 +1,13 @@
-// KeepPage と完了画面の見返し導線の検証
+// KeepPage（フッタータブ＋データセット選択チップ）の検証
 import { chromium } from "playwright";
-import { mkdirSync } from "node:fs";
+import { readFileSync, mkdirSync } from "node:fs";
 
 mkdirSync(".verify-shots", { recursive: true });
+const sampleJson = readFileSync(
+  "C:/ClaudeCode/apps/NetaChoice/shared/sample-dataset.json",
+  "utf-8"
+);
+
 const browser = await chromium.launch();
 const page = await (await browser.newContext({ viewport: { width: 420, height: 800 } })).newPage();
 page.on("pageerror", (e) => console.log("PAGEERROR:", e.message));
@@ -10,46 +15,54 @@ page.on("pageerror", (e) => console.log("PAGEERROR:", e.message));
 await page.goto("http://localhost:4732/");
 await page.waitForSelector("text=ネタふるい Lite");
 
-// ミステリートリックを仕分け（8枚: 残す3, 捨てる3, 保留2）
+// フッターに4タブあるか
+const navLabels = await page.locator("nav button span").allTextContents();
+console.log("フッタータブ:", navLabels.join(" / "));
+
+// 2データセット分の残すを作る: ミステリー2件 + 衛生講話1件
 await page.click('button:has-text("ミステリートリック")');
 await page.waitForSelector("text=未分類を仕分け中");
-const keys = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowRight", "ArrowLeft", "ArrowUp", "ArrowRight", "ArrowLeft"];
-for (const k of keys) {
+for (const k of ["ArrowRight", "ArrowRight", "ArrowLeft", "ArrowLeft", "ArrowLeft", "ArrowLeft", "ArrowLeft", "ArrowLeft"]) {
   await page.keyboard.press(k);
-  await page.waitForTimeout(450);
+  await page.waitForTimeout(400);
 }
 await page.waitForSelector("text=仕分け完了");
-console.log("完了画面: 今回残したネタ表示 =", await page.locator("text=今回残したネタ").isVisible());
-const keptList = await page.locator("ul li").allTextContents();
-console.log("完了画面の残したリスト:", keptList.map((t) => t.trim()).join(" / "));
-await page.screenshot({ path: ".verify-shots/k1-complete.png" });
 
-// 完了画面 → 残したネタを見返す
-await page.click('button:has-text("残したネタを見返す")');
-await page.waitForSelector('h1:has-text("残したネタ")');
-const bodyText = await page.locator("body").innerText();
-console.log("KeepPage: 件数バッジ含む =", /3 件/.test(bodyText));
-console.log("KeepPage: 概要全文表示 =", bodyText.includes("星座の配置に見立てた"));
-console.log("KeepPage: フィールドlabel表示 =", bodyText.includes("トリック種別："));
-await page.screenshot({ path: ".verify-shots/k2-keeppage.png", fullPage: true });
-
-// カードタップ → 詳細モーダルで状態変更できるか
-await page.click('h3:has-text("占星術殺人事件")');
-await page.waitForTimeout(400);
-console.log("詳細モーダル: 状態変更ボタン =", await page.locator('button:has-text("未分類に戻す")').isVisible());
-await page.keyboard.press("Escape");
-await page.locator(".bg-black\\/40").click({ position: { x: 10, y: 10 } }).catch(() => {});
-await page.waitForTimeout(300);
-
-// ホームに戻って導線ボタン確認
+// 衛生講話ネタをインポートして1件残す
 await page.click('nav button:has-text("ホーム")');
-await page.waitForSelector("text=ネタふるい Lite");
-const homeBtn = page.locator('button:has-text("残したネタを見返す")');
-console.log("ホーム導線:", (await homeBtn.textContent()).trim());
-await page.screenshot({ path: ".verify-shots/k3-home.png" });
-await homeBtn.click();
+await page.click("text=インポート / エクスポート");
+await page.fill("textarea", sampleJson);
+await page.click('button:has-text("インポート"):not(:has-text("ファイル"))');
+await page.waitForSelector("text=カードを追加しました");
+await page.click('nav button:has-text("仕分け")');
+await page.click('button:has-text("衛生講話ネタ")');
+await page.waitForSelector("text=未分類を仕分け中");
+for (const k of ["ArrowRight", "ArrowLeft", "ArrowLeft"]) {
+  await page.keyboard.press(k);
+  await page.waitForTimeout(400);
+}
+await page.waitForSelector("text=仕分け完了");
+
+// フッターから残したネタへ
+await page.click('nav button:has-text("残したネタ")');
 await page.waitForSelector('h1:has-text("残したネタ")');
-console.log("ホーム → KeepPage 遷移 OK");
+const chips = await page.locator("div.overflow-x-auto button").allTextContents();
+console.log("選択チップ:", chips.map((t) => t.trim()).join(" / "));
+await page.screenshot({ path: ".verify-shots/n1-keep-all.png" });
+
+// 衛生講話ネタだけに絞る
+await page.click('div.overflow-x-auto button:has-text("衛生講話ネタ")');
+await page.waitForTimeout(300);
+const body = await page.locator("body").innerText();
+console.log("絞り込み: 衛生講話のカード表示 =", body.includes("夜勤明けの仮眠"));
+console.log("絞り込み: ミステリーが非表示 =", !body.includes("占星術殺人事件"));
+await page.screenshot({ path: ".verify-shots/n2-keep-filtered.png" });
+
+// すべてに戻す
+await page.click('div.overflow-x-auto button:has-text("すべて")');
+await page.waitForTimeout(300);
+const bodyAll = await page.locator("body").innerText();
+console.log("すべて: 両データセット表示 =", bodyAll.includes("占星術殺人事件") && bodyAll.includes("夜勤明けの仮眠"));
 
 await browser.close();
 console.log("done");

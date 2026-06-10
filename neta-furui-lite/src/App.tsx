@@ -141,7 +141,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-full max-w-lg mx-auto relative">
+    <div className="min-h-full w-full max-w-lg mx-auto relative">
       <main className="flex-1">
         {currentPage === "home" && (
           <HomePage
