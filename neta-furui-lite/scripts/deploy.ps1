@@ -4,7 +4,8 @@ $ErrorActionPreference = "Stop"
 $appDir = Split-Path -Parent $PSScriptRoot
 Set-Location $appDir
 
-npm run build -- --base "/NetaChoice/"
+$env:DEPLOY_BASE = "/NetaChoice/"
+npm run build
 if ($LASTEXITCODE -ne 0) { throw "build failed" }
 
 New-Item -ItemType File -Force "$appDir\dist\.nojekyll" | Out-Null

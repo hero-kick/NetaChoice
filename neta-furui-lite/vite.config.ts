@@ -4,6 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  // GitHub Pages 配信時は DEPLOY_BASE=/NetaChoice/ を指定（scripts/deploy.ps1 が設定）
+  base: process.env.DEPLOY_BASE || '/',
   plugins: [
     react(),
     tailwindcss(),
