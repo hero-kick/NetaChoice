@@ -13,6 +13,7 @@ import BottomNav from "./components/BottomNav";
 import HomePage from "./pages/HomePage";
 import SortPage from "./pages/SortPage";
 import ListPage from "./pages/ListPage";
+import KeepPage from "./pages/KeepPage";
 import ImportExportPage from "./pages/ImportExportPage";
 
 // ページ読み込み時に1回だけ実行する（初回起動ならサンプルデータを投入）
@@ -170,6 +171,16 @@ export default function App() {
             onStatusChange={handleStatusChange}
             onDeleteCard={handleDeleteCard}
             onSaveCard={handleSaveCard}
+          />
+        )}
+        {currentPage === "keep" && (
+          <KeepPage
+            datasets={datasets}
+            cards={cards}
+            onStatusChange={handleStatusChange}
+            onDeleteCard={handleDeleteCard}
+            onSaveCard={handleSaveCard}
+            onNavigate={handleNavigate}
           />
         )}
         {currentPage === "import-export" && (

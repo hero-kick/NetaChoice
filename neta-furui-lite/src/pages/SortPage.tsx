@@ -176,20 +176,54 @@ export default function SortPage({
   // Sorting complete screen
   if (!currentCard) {
     const remainingHold = sortTarget === "hold" ? queue.length + passedIds.size : holdCount;
+    // このセッションで仕分けたカードの現在の状態を集計
+    const sessionIds = [...new Set(history.map((s) => s.id))];
+    const sessionCards = sessionIds
+      .map((cid) => cards.find((c) => c.id === cid))
+      .filter((c): c is Card => Boolean(c));
+    const sessionKept = sessionCards.filter((c) => c.status === "keep");
+    const sessionDiscarded = sessionCards.filter((c) => c.status === "discard").length;
+    const sessionHeld = sessionCards.filter((c) => c.status === "hold").length;
+
     return (
       <div className="px-4 pt-6 pb-24 flex flex-col items-center justify-center min-h-[60vh]">
-        <div className="text-center">
+        <div className="text-center w-full max-w-sm">
           <div className="text-5xl mb-4">🎉</div>
           <h2 className="text-xl font-bold text-gray-800 mb-2">
             {sortTarget === "hold" ? "保留の見直し完了" : "仕分け完了"}
           </h2>
-          <p className="text-gray-500 text-sm mb-8">
+          <p className="text-gray-500 text-sm mb-6">
             {sortTarget === "hold"
               ? passedIds.size > 0
                 ? `${passedIds.size} 件は保留のままにしました`
                 : `「${dataset.name}」の保留カードをすべて見直しました`
               : `「${dataset.name}」の未分類カードをすべて仕分けました`}
           </p>
+
+          {/* 今回の結果 */}
+          {sessionCards.length > 0 && (
+            <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-6 text-left">
+              <div className="flex items-center justify-center gap-4 text-sm mb-1">
+                <span className="text-keep font-bold">残す {sessionKept.length}</span>
+                <span className="text-discard font-bold">捨てる {sessionDiscarded}</span>
+                <span className="text-hold font-bold">保留 {sessionHeld}</span>
+              </div>
+              {sessionKept.length > 0 && (
+                <div className="mt-3 pt-3 border-t border-gray-100">
+                  <p className="text-xs font-medium text-gray-400 mb-2">今回残したネタ</p>
+                  <ul className="space-y-1.5">
+                    {sessionKept.map((c) => (
+                      <li key={c.id} className="text-sm text-gray-700 flex gap-2">
+                        <span className="text-keep shrink-0">✓</span>
+                        <span>{c.title}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="flex flex-col items-center gap-3">
             {sortTarget === "unclassified" && remainingHold > 0 && (
               <button
@@ -201,10 +235,10 @@ export default function SortPage({
             )}
             <div className="flex gap-3">
               <button
-                onClick={() => onNavigate("list")}
+                onClick={() => onNavigate("keep")}
                 className="px-6 py-3 bg-primary text-white rounded-xl font-medium active:scale-95 transition-transform"
               >
-                一覧を見る
+                残したネタを見返す
               </button>
               <button
                 onClick={() => {

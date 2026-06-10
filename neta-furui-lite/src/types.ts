@@ -45,7 +45,7 @@ export interface Card {
   provenance?: Provenance;
 }
 
-export type Page = "home" | "sort" | "list" | "import-export";
+export type Page = "home" | "sort" | "list" | "keep" | "import-export";
 
 export interface AppState {
   datasets: Dataset[];

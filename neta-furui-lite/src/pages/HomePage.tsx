@@ -82,6 +82,20 @@ export default function HomePage({
         </div>
       </div>
 
+      {/* keep review link */}
+      {cards.some((c) => c.status === "keep") && (
+        <button
+          onClick={() => onNavigate("keep")}
+          className="w-full mb-3 py-3 bg-keep-light rounded-2xl shadow-sm border border-keep/20 text-sm text-keep font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          残したネタを見返す（{cards.filter((c) => c.status === "keep").length} 件）
+        </button>
+      )}
+
       {/* import/export link */}
       <button
         onClick={() => onNavigate("import-export")}
