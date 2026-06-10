@@ -16,7 +16,7 @@
 
 ### 2. ふるいにかける
 
-- 公開URL（GitHub Pages）: デプロイ後にここに記載
+- 公開URL: https://hero-kick.github.io/NetaChoice/ （スマホで開いて「ホーム画面に追加」推奨）
 - ローカル: `cd neta-furui-lite && npm install && npm run dev`
 
 生成したJSONを「インポート / エクスポート」画面から取り込み、仕分ける。
@@ -35,4 +35,4 @@
 ## 開発メモ
 
 - ネタふるい Lite の検証: `npx tsx scripts/smoke-import.ts`（ロジック）/ `node scripts/verify-ui.mjs`（UI、要 `npm run preview -- --port 4731`）
-- main への push で GitHub Pages へ自動デプロイ（`.github/workflows/deploy.yml`）
+- デプロイ: `cd neta-furui-lite && powershell -File scripts/deploy.ps1`（ビルドして gh-pages ブランチへ push）
