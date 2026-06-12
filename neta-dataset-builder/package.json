@@ -1,0 +1,14 @@
+{
+  "name": "neta-dataset-builder",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "AIでネタ候補を収集し、neta-schema.json 準拠のJSONを出力するCLI",
+  "scripts": {
+    "collect": "node src/index.mjs collect",
+    "validate": "node src/index.mjs validate"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.74.0"
+  }
+}

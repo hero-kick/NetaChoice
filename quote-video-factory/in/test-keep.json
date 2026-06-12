@@ -1,0 +1,195 @@
+{
+  "schemaVersion": "1.0.0",
+  "exportedAt": "2026-06-05T09:00:00+09:00",
+  "source": {
+    "tool": "neta-furui-lite"
+  },
+  "datasets": [
+    {
+      "id": "ds-eisei-2026",
+      "name": "衛生講話ネタ",
+      "description": "10分の職場向け衛生講話に使えそうな題材の候補。",
+      "icon": "🩺",
+      "fields": [
+        {
+          "key": "theme",
+          "label": "テーマ",
+          "type": "select",
+          "showOnCard": true,
+          "options": [
+            "メンタルヘルス",
+            "生活習慣病",
+            "感染症",
+            "腰痛",
+            "睡眠",
+            "その他"
+          ]
+        },
+        {
+          "key": "audience",
+          "label": "想定対象",
+          "type": "text",
+          "showOnCard": true
+        },
+        {
+          "key": "evidenceLevel",
+          "label": "エビデンスの強さ",
+          "type": "rating",
+          "showOnCard": false
+        },
+        {
+          "key": "estimatedMinutes",
+          "label": "想定尺(分)",
+          "type": "number",
+          "showOnCard": true
+        },
+        {
+          "key": "keywords",
+          "label": "キーワード",
+          "type": "multiSelect",
+          "showOnCard": false,
+          "options": [
+            "睡眠",
+            "運動",
+            "食事",
+            "ストレス",
+            "感染",
+            "腰痛"
+          ]
+        }
+      ],
+      "createdAt": "2026-06-01T10:00:00+09:00",
+      "updatedAt": "2026-06-05T09:00:00+09:00"
+    },
+    {
+      "id": "ds-quotes-classics",
+      "name": "名言・引用集",
+      "description": "短尺動画化を想定した、出典の確かな引用フレーズ集。",
+      "icon": "💬",
+      "fields": [
+        {
+          "key": "quote",
+          "label": "引用本文",
+          "type": "textarea",
+          "showOnCard": true
+        },
+        {
+          "key": "author",
+          "label": "著者",
+          "type": "text",
+          "showOnCard": true
+        },
+        {
+          "key": "work",
+          "label": "出典作品",
+          "type": "text",
+          "showOnCard": true
+        },
+        {
+          "key": "language",
+          "label": "言語",
+          "type": "select",
+          "showOnCard": false,
+          "options": [
+            "ja",
+            "en",
+            "其他"
+          ]
+        },
+        {
+          "key": "mood",
+          "label": "ムード",
+          "type": "multiSelect",
+          "showOnCard": false,
+          "options": [
+            "静か",
+            "鼓舞",
+            "皮肉",
+            "哀切",
+            "ユーモア"
+          ]
+        }
+      ],
+      "createdAt": "2026-06-01T10:00:00+09:00",
+      "updatedAt": "2026-06-05T09:00:00+09:00"
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-eisei-001",
+      "datasetId": "ds-eisei-2026",
+      "title": "夜勤明けの仮眠は90分か20分か",
+      "summary": "夜勤明けの仮眠時間で疲労回復度がどう変わるか、現場で使える目安を整理。",
+      "customFields": {
+        "theme": "睡眠",
+        "audience": "交代勤務者",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "睡眠"
+        ]
+      },
+      "createdAt": "2026-06-03T11:20:00+09:00",
+      "updatedAt": "2026-06-03T11:20:00+09:00",
+      "provenance": {
+        "sourceTitle": "厚生労働省 健康づくりのための睡眠ガイド",
+        "collectedAt": "2026-06-03T11:20:00+09:00",
+        "collectedBy": "manual-draft"
+      },
+      "status": "keep"
+    },
+    {
+      "id": "card-quote-001",
+      "datasetId": "ds-quotes-classics",
+      "title": "枕草子・春はあけぼの",
+      "summary": "四季の情景描写の冒頭。短尺動画の季節導入に。",
+      "customFields": {
+        "quote": "春はあけぼの。やうやう白くなりゆく山ぎは、すこしあかりて、紫だちたる雲のほそくたなびきたる。",
+        "author": "清少納言",
+        "work": "枕草子",
+        "language": "ja",
+        "mood": [
+          "静か"
+        ]
+      },
+      "createdAt": "2026-06-04T09:00:00+09:00",
+      "updatedAt": "2026-06-04T09:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "枕草子（青空文庫）",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000091/card749.html",
+        "author": "清少納言",
+        "license": "public-domain",
+        "collectedAt": "2026-06-04T09:00:00+09:00",
+        "collectedBy": "manual-draft"
+      },
+      "status": "keep"
+    },
+    {
+      "id": "card-quote-002",
+      "datasetId": "ds-quotes-classics",
+      "title": "Hamlet - To be, or not to be",
+      "summary": "存在をめぐる独白の冒頭。引用元の文脈をクレジットすること。",
+      "customFields": {
+        "quote": "To be, or not to be, that is the question.",
+        "author": "William Shakespeare",
+        "work": "Hamlet, Act 3 Scene 1",
+        "language": "en",
+        "mood": [
+          "静か",
+          "哀切"
+        ]
+      },
+      "createdAt": "2026-06-04T09:05:00+09:00",
+      "updatedAt": "2026-06-04T09:05:00+09:00",
+      "provenance": {
+        "sourceTitle": "Hamlet (Project Gutenberg)",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/1524",
+        "author": "William Shakespeare",
+        "license": "public-domain",
+        "collectedAt": "2026-06-04T09:05:00+09:00",
+        "collectedBy": "manual-draft"
+      },
+      "status": "keep"
+    }
+  ]
+}

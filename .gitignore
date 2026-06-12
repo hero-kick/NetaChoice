@@ -3,6 +3,8 @@ dist/
 dev-dist/
 .verify-shots/
 *.local
+quote-video-factory/out/
+neta-dataset-builder/out/
 
 # CI workflow は workflow スコープ不足で push 不可のためローカル保持
 .github/

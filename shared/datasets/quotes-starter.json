@@ -1,0 +1,258 @@
+{
+  "schemaVersion": "1.0.0",
+  "exportedAt": "2026-06-13T00:00:00+09:00",
+  "source": {
+    "tool": "manual",
+    "version": "0.1.0",
+    "notes": "調査エージェントが出典確認したパブリックドメイン名言10件。サンプルと同じデータセット名のため、インポートすると「名言・引用集」に追記される。"
+  },
+  "datasets": [
+    {
+      "id": "ds-quotes-classics",
+      "name": "名言・引用集",
+      "description": "短尺動画化を想定した、出典の確かな引用フレーズ集。",
+      "icon": "💬",
+      "fields": [
+        { "key": "quote", "label": "引用本文", "type": "textarea", "showOnCard": true },
+        { "key": "author", "label": "著者", "type": "text", "showOnCard": true },
+        { "key": "work", "label": "出典作品", "type": "text", "showOnCard": true },
+        { "key": "language", "label": "言語", "type": "select", "showOnCard": false, "options": ["ja", "en", "其他"] },
+        { "key": "mood", "label": "ムード", "type": "multiSelect", "showOnCard": false, "options": ["静か", "鼓舞", "皮肉", "哀切", "ユーモア"] }
+      ],
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00"
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-quote-101",
+      "datasetId": "ds-quotes-classics",
+      "title": "草枕・智に働けば角が立つ",
+      "summary": "漱石『草枕』の冒頭。処世のままならなさを突き放して語る一節で、リズムが良く字幕の畳みかけ演出に向く。働く大人の共感系ショートに。",
+      "customFields": {
+        "quote": "智に働けば角が立つ。情に棹させば流される。意地を通せば窮屈だ。兎角に人の世は住みにくい。",
+        "author": "夏目漱石",
+        "work": "草枕",
+        "language": "ja",
+        "mood": ["皮肉", "静か"]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "夏目漱石（ウィキクォート日本語版）／青空文庫『草枕』",
+        "sourceUrl": "https://ja.wikiquote.org/wiki/夏目漱石",
+        "author": "夏目漱石",
+        "license": "public-domain",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-quotes"
+      }
+    },
+    {
+      "id": "card-quote-102",
+      "datasetId": "ds-quotes-classics",
+      "title": "吾輩は猫である・冒頭",
+      "summary": "日本文学で最も知られた書き出しのひとつ。猫の実写・アニメ映像に一文ずつ出すだけで成立する、ユーモア枠の鉄板素材。",
+      "customFields": {
+        "quote": "吾輩は猫である。名前はまだ無い。",
+        "author": "夏目漱石",
+        "work": "吾輩は猫である",
+        "language": "ja",
+        "mood": ["ユーモア"]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "吾輩は猫である（ウィキソース日本語版）",
+        "sourceUrl": "https://ja.wikisource.org/wiki/吾輩は猫である",
+        "author": "夏目漱石",
+        "license": "public-domain",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-quotes"
+      }
+    },
+    {
+      "id": "card-quote-103",
+      "datasetId": "ds-quotes-classics",
+      "title": "人間失格・恥の多い生涯",
+      "summary": "『人間失格』第一の手記の書き出し。一文だけで重さが伝わるため、暗転からの一行表示など最小限の演出が映える哀切枠。",
+      "customFields": {
+        "quote": "恥の多い生涯を送って来ました。",
+        "author": "太宰治",
+        "work": "人間失格",
+        "language": "ja",
+        "mood": ["哀切"]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "太宰治（ウィキクォート日本語版）／青空文庫『人間失格』",
+        "sourceUrl": "https://ja.wikiquote.org/wiki/太宰治",
+        "author": "太宰治",
+        "license": "public-domain",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-quotes"
+      }
+    },
+    {
+      "id": "card-quote-104",
+      "datasetId": "ds-quotes-classics",
+      "title": "侏儒の言葉・人生は一箱のマッチ",
+      "summary": "芥川晩年の箴言集から。逆説の切れ味が短尺向きで、マッチを擦る接写映像と組み合わせると映像化しやすい皮肉枠の代表格。",
+      "customFields": {
+        "quote": "人生は一箱のマッチに似ている。重大に扱うのは莫迦莫迦しい。重大に扱わなければ危険である。",
+        "author": "芥川龍之介",
+        "work": "侏儒の言葉",
+        "language": "ja",
+        "mood": ["皮肉"]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "侏儒の言葉（青空文庫）",
+        "sourceUrl": "https://www.aozora.gr.jp/cards/000879/files/158_15132.html",
+        "author": "芥川龍之介",
+        "license": "public-domain",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-quotes"
+      }
+    },
+    {
+      "id": "card-quote-105",
+      "datasetId": "ds-quotes-classics",
+      "title": "学問のすゝめ・天は人の上に",
+      "summary": "明治啓蒙書の冒頭句（独立宣言由来の引用と明示されている点も小ネタになる）。平等と学びを説く鼓舞枠で、原文のカタカナ表記がビジュアルとして強い。",
+      "customFields": {
+        "quote": "天ハ人ノ上ニ人ヲ造ラズ人ノ下ニ人ヲ造ラズト云ヘリ。",
+        "author": "福澤諭吉",
+        "work": "学問のすゝめ",
+        "language": "ja",
+        "mood": ["鼓舞"]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "福澤諭吉（ウィキクォート日本語版・學問ノスヽメ）",
+        "sourceUrl": "https://ja.wikiquote.org/wiki/福澤諭吉",
+        "author": "福澤諭吉",
+        "license": "public-domain",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-quotes"
+      }
+    },
+    {
+      "id": "card-quote-106",
+      "datasetId": "ds-quotes-classics",
+      "title": "雨ニモマケズ・冒頭",
+      "summary": "賢治の手帳に遺された詩の冒頭。カタカナの連呼がリズムを生み、雨や風景映像に一行ずつ刻む縦型テロップと相性が良い。",
+      "customFields": {
+        "quote": "雨ニモマケズ 風ニモマケズ 雪ニモ夏ノ暑サニモマケヌ 丈夫ナカラダヲモチ",
+        "author": "宮沢賢治",
+        "work": "雨ニモマケズ",
+        "language": "ja",
+        "mood": ["鼓舞", "静か"]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "雨ニモマケズ（ウィキソース日本語版）",
+        "sourceUrl": "https://ja.wikisource.org/wiki/雨ニモマケズ",
+        "author": "宮沢賢治",
+        "license": "public-domain",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-quotes"
+      }
+    },
+    {
+      "id": "card-quote-107",
+      "datasetId": "ds-quotes-classics",
+      "title": "山頭火・分け入っても青い山",
+      "summary": "自由律俳句の代表句。放浪の孤独と山の青さが一句に凝縮されており、山道の一人称歩行映像と無音気味のBGMで哀切に振れる。",
+      "customFields": {
+        "quote": "分け入つても分け入つても青い山",
+        "author": "種田山頭火",
+        "work": "草木塔",
+        "language": "ja",
+        "mood": ["静か", "哀切"]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "種田山頭火（ウィキクォート日本語版・草木塔）",
+        "sourceUrl": "https://ja.wikiquote.org/wiki/種田山頭火",
+        "author": "種田山頭火",
+        "license": "public-domain",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-quotes"
+      }
+    },
+    {
+      "id": "card-quote-108",
+      "datasetId": "ds-quotes-classics",
+      "title": "ワイルド・どぶの中から星を見る",
+      "summary": "『ウィンダミア卿夫人の扇』第三幕、ダーリントン卿の台詞。和訳「我々は皆どぶの中にいる。だがそこから星を見上げている者もいる」。皮肉と希望が同居し夜空映像と好相性。",
+      "customFields": {
+        "quote": "We are all in the gutter, but some of us are looking at the stars.",
+        "author": "Oscar Wilde",
+        "work": "Lady Windermere's Fan (Act III)",
+        "language": "en",
+        "mood": ["皮肉", "鼓舞"]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "Oscar Wilde（英語版ウィキクォート）",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Oscar_Wilde",
+        "author": "Oscar Wilde",
+        "license": "public-domain",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-quotes"
+      }
+    },
+    {
+      "id": "card-quote-109",
+      "datasetId": "ds-quotes-classics",
+      "title": "ディキンソン・希望は羽をもつもの",
+      "summary": "和訳「『希望』は羽をもつもの――魂にとまる」。小鳥の映像と静かなピアノで、励まし系だが押しつけがましくないトーンを作れる。",
+      "customFields": {
+        "quote": "\"Hope\" is the thing with feathers – / That perches in the soul –",
+        "author": "Emily Dickinson",
+        "work": "\"Hope\" is the thing with feathers",
+        "language": "en",
+        "mood": ["静か", "鼓舞"]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "Emily Dickinson（英語版ウィキクォート）",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Emily_Dickinson",
+        "author": "Emily Dickinson",
+        "license": "public-domain",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-quotes"
+      }
+    },
+    {
+      "id": "card-quote-110",
+      "datasetId": "ds-quotes-classics",
+      "title": "ソロー・森へ行った理由",
+      "summary": "『ウォールデン』第2章。和訳「私が森へ行ったのは、意図して生きるためだった――人生の本質的な事実だけに向き合うために」。ミニマリズム・自然系コンテンツの導入に向く。",
+      "customFields": {
+        "quote": "I went to the woods because I wished to live deliberately, to front only the essential facts of life",
+        "author": "Henry David Thoreau",
+        "work": "Walden (Ch. 2: Where I Lived, and What I Lived For)",
+        "language": "en",
+        "mood": ["静か", "鼓舞"]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "Walden（英語版ウィキクォート）",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Walden",
+        "author": "Henry David Thoreau",
+        "license": "public-domain",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-quotes"
+      }
+    }
+  ]
+}

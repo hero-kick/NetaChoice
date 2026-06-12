@@ -4,26 +4,36 @@
 
 | ツール | 状態 | 役割 |
 |---|---|---|
-| neta-dataset-builder | プロンプト運用中 | AIでネタ候補を収集し、共通スキーマのJSONを出力 |
+| [neta-dataset-builder](neta-dataset-builder/) | CLI稼働中 | Claude APIでネタ候補を収集し、共通スキーマのJSONを出力 |
 | [neta-furui-lite](neta-furui-lite/) | 稼働中 | スマホでカードを1枚ずつ「残す / 捨てる / 保留」に仕分けるPWA |
-| quote-video-factory | 未着手 | 「残す」カードから短尺動画を生成 |
+| [quote-video-factory](quote-video-factory/) | MVP稼働中 | 「残す」カードから縦型画像（ffmpegがあればmp4）を生成 |
 
 ## いますぐ使う
 
-### 1. ネタを集める
+### 1. ネタを集める（3つの方法）
 
-`shared/prompts/collect-neta.md` のプロンプトをClaudeに貼り付けて、ネタJSONを生成する。
+- **すぐ試す**: `shared/datasets/` の出来合いデータセット（名言・衛生講話ネタ、出典確認済み）をインポート
+- **プロンプト運用**: `shared/prompts/collect-neta.md` をClaude（Web検索あり）に貼り付けてJSON生成。出典の確実性が要る題材向き
+- **CLI**: `cd neta-dataset-builder && node src/index.mjs collect --theme "..."`（要 ANTHROPIC_API_KEY）
 
 ### 2. ふるいにかける
 
 - 公開URL: https://hero-kick.github.io/NetaChoice/ （スマホで開いて「ホーム画面に追加」推奨）
 - ローカル: `cd neta-furui-lite && npm install && npm run dev`
 
-生成したJSONを「インポート / エクスポート」画面から取り込み、仕分ける。
+JSONを「インポート / エクスポート」画面から取り込み、仕分ける。
 
-### 3. 取り出す
+### 3. 形にする
 
-「残す」だけをJSON（動画化用）またはMarkdown（メモ・再利用）でエクスポートする。
+「『残す』だけをJSONで出力」したファイルを `quote-video-factory/in/` に置いて:
+
+```powershell
+cd quote-video-factory
+python make_cards.py in\neta-furui-keep-XXXXXXXX.json
+```
+
+縦型1080×1920の画像（引用テンプレート / 汎用テンプレート自動切替）が `out/` に生成される。
+Markdownエクスポートはメモ・AI再投入用。
 
 ## ドキュメント
 

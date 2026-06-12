@@ -1,0 +1,409 @@
+{
+  "schemaVersion": "1.0.0",
+  "exportedAt": "2026-06-13T00:00:00+09:00",
+  "source": {
+    "tool": "manual",
+    "version": "0.1.0",
+    "notes": "調査エージェントが厚労省系ソースのURLを確認して収集した衛生講話ネタ15件。インポートすると「衛生講話ネタ」に追記される。"
+  },
+  "datasets": [
+    {
+      "id": "ds-eisei-2026",
+      "name": "衛生講話ネタ",
+      "description": "10分の職場向け衛生講話に使えそうな題材の候補。",
+      "icon": "🩺",
+      "fields": [
+        {
+          "key": "theme",
+          "label": "テーマ",
+          "type": "select",
+          "showOnCard": true,
+          "options": [
+            "メンタルヘルス",
+            "生活習慣病",
+            "感染症",
+            "腰痛",
+            "睡眠",
+            "その他"
+          ]
+        },
+        {
+          "key": "audience",
+          "label": "想定対象",
+          "type": "text",
+          "showOnCard": true
+        },
+        {
+          "key": "evidenceLevel",
+          "label": "エビデンスの強さ",
+          "type": "rating",
+          "showOnCard": false
+        },
+        {
+          "key": "estimatedMinutes",
+          "label": "想定尺(分)",
+          "type": "number",
+          "showOnCard": true
+        },
+        {
+          "key": "keywords",
+          "label": "キーワード",
+          "type": "multiSelect",
+          "showOnCard": false,
+          "options": [
+            "睡眠",
+            "運動",
+            "食事",
+            "ストレス",
+            "感染",
+            "腰痛"
+          ]
+        }
+      ],
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00"
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-eisei-101",
+      "datasetId": "ds-eisei-2026",
+      "title": "睡眠時間より「睡眠休養感」――朝起きたとき休まった感じがあるかをセルフチェックする",
+      "summary": "厚労省の睡眠ガイド2023は成人に6時間以上の睡眠と「睡眠休養感」を新たな指標として提示した。時間が確保できない人でも、起床時の休まった感覚を毎朝メモするだけで自分の適正睡眠が見えてくる。休日の寝だめとの付き合い方まで具体的に話せる。",
+      "customFields": {
+        "theme": "睡眠",
+        "audience": "全社員",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "睡眠"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "厚生労働省「睡眠対策」（健康づくりのための睡眠ガイド2023）",
+        "sourceUrl": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/kenkou/suimin/index.html",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-102",
+      "datasetId": "ds-eisei-2026",
+      "title": "寝酒は睡眠の質を下げる――カフェインは就寝5〜6時間前まで、という線引きを伝える",
+      "summary": "アルコールは寝つきを良くする一方で深いノンレム睡眠を減らし中途覚醒を増やす。カフェインの代謝には個人差があり、敏感な人は就寝5〜6時間前から控える。「夕方のコーヒーと晩酌の量」という今夜から変えられる行動に直結する。",
+      "customFields": {
+        "theme": "睡眠",
+        "audience": "全社員",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "睡眠"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "e-ヘルスネット「快眠と生活習慣」（厚生労働省）",
+        "sourceUrl": "https://kennet.mhlw.go.jp/information/information/heart/k-01-004.html",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-103",
+      "datasetId": "ds-eisei-2026",
+      "title": "夜勤・交代勤務者の眠り方――夜勤前の仮眠と帰宅時の光の避け方",
+      "summary": "睡眠ガイド2023は交代勤務者向けに、夜勤前・夜勤中の仮眠の活用、夜勤明けの帰宅時にサングラス等で強い光を避ける、眠る部屋を暗くするなどの具体策を示している。交代勤務のある事業場で「個人の工夫」として明日から使える内容。",
+      "customFields": {
+        "theme": "睡眠",
+        "audience": "交代勤務者",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "睡眠"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "健康づくりのための睡眠ガイド2023（厚生労働省）",
+        "sourceUrl": "https://www.mhlw.go.jp/content/001305530.pdf",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-104",
+      "datasetId": "ds-eisei-2026",
+      "title": "「座りっぱなし」は独立した健康リスク――30分に一度立つだけで血糖・中性脂肪が変わる",
+      "summary": "運動ガイド2023は「座位行動」という概念を導入し、座りすぎを避けることを成人への推奨事項に明記した。30分ごとに座位を中断すると食後血糖や中性脂肪の改善が報告されている。電話は立って取る、印刷は遠いプリンタへ、など事務職に即効性のある提案ができる。",
+      "customFields": {
+        "theme": "生活習慣病",
+        "audience": "事務職・デスクワーカー",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "運動"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "健康づくりのための身体活動・運動ガイド2023（概要）（厚生労働省）",
+        "sourceUrl": "https://www.mhlw.go.jp/content/001204942.pdf",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-105",
+      "datasetId": "ds-eisei-2026",
+      "title": "自分の飲酒量を「純アルコール量(g)」で数えてみる――ビール500mlは20g",
+      "summary": "2024年公表の国の飲酒ガイドラインは、量(ml)×度数×0.8で純アルコール量を計算し、生活習慣病リスクが高まる目安を男性40g/日・女性20g/日と示した。普段の晩酌を実際にグラム換算するワークを入れると、自分の位置が一目で分かり行動につながる。",
+      "customFields": {
+        "theme": "生活習慣病",
+        "audience": "全社員（飲酒習慣のある人）",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "食事"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "健康に配慮した飲酒に関するガイドラインについて（厚生労働省）",
+        "sourceUrl": "https://www.mhlw.go.jp/stf/newpage_38541.html",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-106",
+      "datasetId": "ds-eisei-2026",
+      "title": "減塩は「引き算」だけでなく「カリウムの足し算」――日本人は目標より約3g塩を摂りすぎている",
+      "summary": "食塩の目標は男性7.5g/女性6.5g未満だが実際は約3g超過。一方カリウム（野菜・果物）にはナトリウム排出を促す作用がある。麺の汁を残す・漬物を一品減らすという引き算に、果物や野菜を一皿足す提案を組み合わせると実行しやすい。",
+      "customFields": {
+        "theme": "生活習慣病",
+        "audience": "全社員（特に健診で血圧指摘のある人）",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "食事"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "e-ヘルスネット「栄養・食生活と高血圧」（厚生労働省）",
+        "sourceUrl": "https://kennet.mhlw.go.jp/information/information/food/e-02-002.html",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-107",
+      "datasetId": "ds-eisei-2026",
+      "title": "野菜は目標350gに対し平均256g――「あと一皿(約70g)」から始める",
+      "summary": "健康日本21（第三次）の野菜目標350gに対し、日本人の平均摂取は256g（令和5年国民健康・栄養調査）。差は約一皿分で、コンビニでサラダか野菜の小鉢を一つ足せば届く距離だと示せる。完璧な自炊を求めない構成にしやすいテーマ。",
+      "customFields": {
+        "theme": "生活習慣病",
+        "audience": "全社員（外食・中食中心の人）",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "食事"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "e-ヘルスネット「野菜1日350gで健康増進」（厚生労働省）",
+        "sourceUrl": "https://kennet.mhlw.go.jp/information/information/food/e-03-015.html",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-108",
+      "datasetId": "ds-eisei-2026",
+      "title": "加熱式たばこは「害が少ない」と言い切れない――分かっていること・いないことを整理する",
+      "summary": "加熱式たばこの主流煙にも有害物質は含まれ、長期使用の健康影響はまだ明らかになっていない。紙巻きから切り替えて安心している社員に、現時点の科学的な到達点と、加熱式使用者も保険診療の禁煙治療対象であることを正直に伝えられる。",
+      "customFields": {
+        "theme": "生活習慣病",
+        "audience": "全社員（喫煙者・切替検討者）",
+        "evidenceLevel": 2,
+        "estimatedMinutes": 10,
+        "keywords": []
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "e-ヘルスネット「加熱式たばこの健康影響」（厚生労働省）",
+        "sourceUrl": "https://kennet.mhlw.go.jp/information/information/tobacco/t-02-008.html",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-109",
+      "datasetId": "ds-eisei-2026",
+      "title": "歯周病は口だけの病気ではない――糖尿病と双方向に影響し、喫煙でリスク3倍",
+      "summary": "歯周病は糖尿病があると進行しやすく、喫煙者は非喫煙者の3倍以上罹りやすい。自覚症状が乏しいまま進む病気であり、歯間ブラシ・フロスの追加と年1回の歯科受診という明確な行動を提示できる。健診はあっても歯科健診のない職場で特に刺さる。",
+      "customFields": {
+        "theme": "生活習慣病",
+        "audience": "全社員",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "食事"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "e-ヘルスネット「歯周病とは」（厚生労働省）",
+        "sourceUrl": "https://kennet.mhlw.go.jp/information/information/teeth/h-03-001.html",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-110",
+      "datasetId": "ds-eisei-2026",
+      "title": "腰痛は持ち上げる「前」に決まる――荷物に身体を近づける・ひねらない・膝を使う",
+      "summary": "国の腰痛予防対策指針は、動作要因・環境要因・個人的要因に分けた予防策を示しており、重量物は身体に近づけて膝で持ち上げる、腰をひねったまま動作しない等の作業姿勢が核になる。物流・介護だけでなく、コピー用紙の箱を運ぶ事務職にもそのまま使える。",
+      "customFields": {
+        "theme": "腰痛",
+        "audience": "全社員（特に荷扱い・介護・物流）",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "腰痛"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "厚生労働省「腰痛予防対策」（職場における腰痛予防対策指針）",
+        "sourceUrl": "https://www.mhlw.go.jp/stf/newpage_31158.html",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-111",
+      "datasetId": "ds-eisei-2026",
+      "title": "職場のけがで一番多いのは「転倒」――段差より怖いのは『何もない場所』と滑る床",
+      "summary": "死傷災害で転倒は最多クラスで、60歳以上は労働者の約19%なのに死傷者の約29%を占める。転倒は危険を感じない場所で起きることが多く、ポケットに手を入れて歩かない・かかとの摩耗した靴を替える・濡れた床を放置しないなど、全員が今日からできる対策を並べられる。",
+      "customFields": {
+        "theme": "その他",
+        "audience": "全社員（特に中高年労働者の多い職場）",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "運動"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "エイジフレンドリーガイドライン（高年齢労働者の安全と健康確保のためのガイドライン）（厚生労働省）",
+        "sourceUrl": "https://www.mhlw.go.jp/content/001107783.pdf",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-112",
+      "datasetId": "ds-eisei-2026",
+      "title": "熱中症対策が罰則付きの義務になった――「おかしいと思ったら報告する」体制を全員で回す",
+      "summary": "2025年6月施行の改正労働安全衛生規則で、WBGT28℃以上等の作業を行う事業場には報告体制の整備・手順作成・周知が義務化された。制度の説明にとどめず、「自分や同僚の異変に気づいたら誰に報告するか」を従業員一人ひとりの行動として落とし込める。",
+      "customFields": {
+        "theme": "その他",
+        "audience": "屋外作業者・高温環境の作業者を含む全社員",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": []
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "職場における熱中症対策の強化について～令和7年6月1日に改正労働安全衛生規則が施行されます～（厚生労働省 鹿児島労働局）",
+        "sourceUrl": "https://jsite.mhlw.go.jp/kagoshima-roudoukyoku/hourei_seido_tetsuzuki/anzen_eisei/nettyusyou/2025-0418-7.html",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-113",
+      "datasetId": "ds-eisei-2026",
+      "title": "画面作業の目の疲れには国のガイドラインがある――1時間ごとに10〜15分の作業休止、画面まで40cm",
+      "summary": "情報機器作業ガイドラインは、一連続作業時間を1時間以内とし次の作業までに10〜15分の休止、ディスプレイとの距離おおむね40cm以上などを定めている。テレワークにも適用される改正済みで、モニタ位置や休憩の取り方をその場で見直せる実用的なテーマ。",
+      "customFields": {
+        "theme": "その他",
+        "audience": "事務職・テレワーカー",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": []
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "情報機器作業における労働衛生管理のためのガイドライン（基発0712第3号、厚生労働省）",
+        "sourceUrl": "https://www.mhlw.go.jp/content/000539604.pdf",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-114",
+      "datasetId": "ds-eisei-2026",
+      "title": "手洗いの効果を数字で見せる――流水15秒で1/100、石けんを足すと1/10000",
+      "summary": "厚労省資料（森ら, 感染症学雑誌2006に基づく）では、流水15秒の手洗いでウイルスは約1/100、石けんでもみ洗い後にすすぐと約1/10000まで減る。「とりあえず水だけでも意味がある」という現実的な落としどころを示せるので、冬の感染症シーズン前に最適。",
+      "customFields": {
+        "theme": "感染症",
+        "audience": "全社員",
+        "evidenceLevel": 2,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "感染"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "手洗いの時間・回数による効果（厚生労働省資料、出典：森功次他 感染症学雑誌80:496-500, 2006）",
+        "sourceUrl": "https://www.mhlw.go.jp/file/06-Seisakujouhou-11130500-Shokuhinanzenbu/0000105095.pdf",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    },
+    {
+      "id": "card-eisei-115",
+      "datasetId": "ds-eisei-2026",
+      "title": "ストレスは「気づく」が最初の対処――身体に出るサインと、自分に合う対処法の見つけ方",
+      "summary": "厚労省「こころの耳」の15分セルフケア教材は、ストレス要因と反応の理解からリラクセーション・運動・睡眠などの対処法までを体系化している。眠れない・食欲が落ちるなど身体のサインに自分で気づくチェックの仕方と、5分でできるストレスセルフチェックの紹介につなげられる。",
+      "customFields": {
+        "theme": "メンタルヘルス",
+        "audience": "全社員",
+        "evidenceLevel": 3,
+        "estimatedMinutes": 10,
+        "keywords": [
+          "ストレス",
+          "睡眠"
+        ]
+      },
+      "createdAt": "2026-06-13T00:00:00+09:00",
+      "updatedAt": "2026-06-13T00:00:00+09:00",
+      "provenance": {
+        "sourceTitle": "こころの耳「eラーニングで学ぶ15分でわかるセルフケア」（厚生労働省）",
+        "sourceUrl": "https://kokoro.mhlw.go.jp/selfcare/",
+        "collectedAt": "2026-06-13T00:00:00+09:00",
+        "collectedBy": "research-agent-eisei"
+      }
+    }
+  ]
+}
